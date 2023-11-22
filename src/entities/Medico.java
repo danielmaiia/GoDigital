@@ -1,9 +1,9 @@
 package entities;
 
+import utils.ConsultaCSVWriter;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 public class Medico {
     public Medico() {
@@ -37,41 +37,20 @@ public class Medico {
                                    String escolaridade, String telefone, String email,
                                    String especialidade, String senha, int gravidade, int idade, int
                                            tempoEsperaSemanas, int score) {
-        return new Consulta(
-                nomePaciente,
-                this.id,
-                cartaoSus,
-                cpfPaciente,
-                dataNascimento,
-                escolaridade,
-                telefone,
-                email,
-                LocalDate.now(),
-                especialidade,
-                senha,
-                gravidade,
-                idade,
-                tempoEsperaSemanas,
-                score);
+
+        Consulta consulta = new Consulta(nomePaciente, this.id, cartaoSus,
+                cpfPaciente, dataNascimento, escolaridade, telefone, email, LocalDate.now(),
+                especialidade, senha, gravidade, idade, tempoEsperaSemanas, score);
+
+        ConsultaCSVWriter.writeConsultaToCSV(consulta);
+
+        return consulta;
+
     }
-    public static void main(String[] args) {
-        List<Medico> medicos = new ArrayList<>();
-// Mockar 10.000 objetos Medico
-        for (int i = 0; i < 10000; i++) {
-            Medico medico = new Medico(
-                    "Nome" + i,
-                    LocalDate.now().minusYears(i % 30), // Varia a data de nascimento
-                    "CRM" + i,
-                    "Usuario" + i,
-                    "Senha" + i
-            );
-            medicos.add(medico);
-        }
-// Exemplo de uso: imprimir o nome e CRM dos 10 primeiros médicos
-        for (int i = 0; i < 10; i++) {
-            Medico medico = medicos.get(i);
-            System.out.println("Nome: " + medico.getNome() + ", CRM: " + medico.getCrm());
-        }
+
+    public void deleteConsulta(int consultaId) {
+        ConsultaCSVWriter.deleteConsultaFromCSV(consultaId);
+        System.out.println("Excluido com sucesso");
     }
 
     public UUID getId() {
@@ -133,4 +112,5 @@ public class Medico {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
 }
