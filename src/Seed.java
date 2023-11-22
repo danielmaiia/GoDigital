@@ -10,20 +10,15 @@ import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Seed {
-    public static void main (String[]args){
-
-        for (int i = 0; i < 10000; i++) {
-            Medico medico = new Medico(
-                    "Nome" + i,
-                    LocalDate.now().minusYears(i % 30),
-                    "CRM" + i,
-                    "Usuario" + i,
-                    "Senha" + i
-            );
-            MedicoCSVWriter.writeMedicoToCSV(medico);
-        }
 
 
+    public static void main(String[] args) {
+        seedMedicos();
+        seedConsultas();
+        seedCoordenacao();
+    }
+
+    public static void seedConsultas() {
         for (int i = 0; i < 10000; i++) {
             Consulta consulta = new Consulta(
                     "Paciente" + i,
@@ -44,9 +39,24 @@ public class Seed {
             );
             ConsultaCSVWriter.writeConsultaToCSV(consulta);
         }
+    }
 
+    public static void seedMedicos() {
         for (int i = 0; i < 10000; i++) {
-                    Coordenacao coordenacao = new Coordenacao(
+            Medico medico = new Medico(
+                    "Nome" + i,
+                    LocalDate.now().minusYears(i % 30),
+                    "CRM" + i,
+                    "Usuario" + i,
+                    "Senha" + i
+            );
+            MedicoCSVWriter.writeMedicoToCSV(medico);
+        }
+    }
+
+    public static void seedCoordenacao() {
+        for (int i = 0; i < 10000; i++) {
+            Coordenacao coordenacao = new Coordenacao(
                     "Nome" + i,
                     LocalDate.now().minusYears(i % 30), // Varia a data de nascimento
                     "CPF" + i,
@@ -55,7 +65,7 @@ public class Seed {
             );
             CoordenacaoCSVWriter.writeCoordenacaoToCSV(coordenacao);
         }
-
-
     }
 }
+
+
