@@ -14,8 +14,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Seed {
 
 
-    public static void seedConsultas() {
-        for (int i = 0; i < 1000; i++) {
+    public static void seeding() {
+        for (int i = 0; i < 10000; i++) {
             Consulta consulta = new Consulta(
                     "Paciente" + i,
                     UUID.randomUUID(), // Você pode substituir isso pelo ID real de um médico
@@ -34,11 +34,7 @@ public class Seed {
                     ThreadLocalRandom.current().nextInt(1, 100)
             );
             ConsultaCSVWriter.writeConsultaToCSV(consulta);
-        }
-    }
 
-    public static void seedMedicos() {
-        for (int i = 0; i < 1000; i++) {
             Medico medico = new Medico(
                     "Nome" + i,
                     LocalDate.now().minusYears(i % 30),
@@ -47,11 +43,7 @@ public class Seed {
                     "Senha" + i
             );
             MedicoCSVWriter.writeMedicoToCSV(medico);
-        }
-    }
 
-    public static void seedCoordenacao() {
-        for (int i = 0; i < 1000; i++) {
             Coordenacao coordenacao = new Coordenacao(
                     "Nome" + i,
                     LocalDate.now().minusYears(i % 30), // Varia a data de nascimento
@@ -61,7 +53,8 @@ public class Seed {
             );
             CoordenacaoCSVWriter.writeCoordenacaoToCSV(coordenacao);
         }
+        }
+
     }
-}
 
 

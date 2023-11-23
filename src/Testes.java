@@ -7,6 +7,7 @@ import readers.MedicoCSVReader;
 import utils.BuscaBinariaConsulta;
 import utils.BuscaBinariaCoordenacao;
 import utils.BuscaBinariaMedico;
+import utils.Seed;
 
 import java.util.Comparator;
 import java.util.List;
@@ -16,16 +17,15 @@ public class Testes {
     public static void main(String[] args) {
 
         //TESTE DE SEEDS
-//        Seed.seedConsultas();
-//        Seed.seedMedicos();
-//        Seed.seedCoordenacao();
+//        Seed.seeding();
+
 
         //TESTE BUSCA BINARIA PRA MEDICO
         List<Medico> medicos = MedicoCSVReader.readMedicosFromCSV();
 
         medicos.sort(Comparator.comparing(m -> m.getId()));
 
-        UUID idDoMedicoParaBuscar = UUID.fromString("321cab38-ff1e-4c2c-bd60-f1043ccfc50e");
+        UUID idDoMedicoParaBuscar = UUID.fromString("8cdd053e-4b5d-49a4-9657-5656296f60ae");
         Medico medicoEncontrado = BuscaBinariaMedico.buscaBinariaMedico(medicos, idDoMedicoParaBuscar);
 
         if (medicoEncontrado != null) {
