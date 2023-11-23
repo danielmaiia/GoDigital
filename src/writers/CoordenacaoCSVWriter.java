@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.UUID;
 
 public class CoordenacaoCSVWriter {
-    private static final String CSV_FILE_PATH = "coordenacoes.csv";
+    public static final String COORDENACOES_CSV_PATH = "coordenacoes.csv";
 
     public static void writeCoordenacaoToCSV(Coordenacao coordenacao) {
-        try (FileWriter csvWriter = new FileWriter(CSV_FILE_PATH, true)) {
-            File file = new File(CSV_FILE_PATH);
+        try (FileWriter csvWriter = new FileWriter(COORDENACOES_CSV_PATH, true)) {
+            File file = new File(COORDENACOES_CSV_PATH);
             if (file.length() == 0) {
                 csvWriter.append("ID;Nome;DataNascimento;CPF;Usuario;Senha;CreatedAt;UpdatedAt\n");
             }
@@ -31,9 +31,9 @@ public class CoordenacaoCSVWriter {
 
     public static void deleteCoordenacaoFromCSV(UUID coordenacaoId) {
         try {
-            List<String> lines = Files.readAllLines(Paths.get(CSV_FILE_PATH));
+            List<String> lines = Files.readAllLines(Paths.get(COORDENACOES_CSV_PATH));
 
-            try (PrintWriter writer = new PrintWriter(new FileWriter(CSV_FILE_PATH))) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(COORDENACOES_CSV_PATH))) {
                 if (!lines.isEmpty()) {
                     writer.println(lines.get(0));
                 }
@@ -57,9 +57,9 @@ public class CoordenacaoCSVWriter {
 
     public static void editCoordenacaoInCSV(UUID coordenacaoId, Coordenacao novosDados) {
         try {
-            List<String> lines = Files.readAllLines(Paths.get(CSV_FILE_PATH));
+            List<String> lines = Files.readAllLines(Paths.get(COORDENACOES_CSV_PATH));
 
-            try (PrintWriter writer = new PrintWriter(new FileWriter(CSV_FILE_PATH))) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(COORDENACOES_CSV_PATH))) {
                 if (!lines.isEmpty()) {
                     writer.println(lines.get(0));
                 }

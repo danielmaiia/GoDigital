@@ -48,6 +48,28 @@ public class Consulta {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
+
+    public Consulta(int id, String nomePaciente, UUID medicoId, String cartaoSus, String cpfPaciente, LocalDate dataNascimento, String escolaridade, String telefone, String email, LocalDate dataRequisicao, String especialidade, String senha, int gravidade, int idade, int tempoEsperaSemanas, int score, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.nomePaciente = nomePaciente;
+        this.medicoId = medicoId;
+        this.cartaoSus = cartaoSus;
+        this.cpfPaciente = cpfPaciente;
+        this.dataNascimento = dataNascimento;
+        this.escolaridade = escolaridade;
+        this.telefone = telefone;
+        this.email = email;
+        this.dataRequisicao = dataRequisicao;
+        this.especialidade = especialidade;
+        this.senha = senha;
+        this.gravidade = gravidade;
+        this.idade = idade;
+        this.tempoEsperaSemanas = tempoEsperaSemanas;
+        this.score = score;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
     private static int generateId() {
 // Simples gerador de IDs, você pode usar uma lógica mais avançada conform necessário
         return ThreadLocalRandom.current().nextInt(1, 100000);

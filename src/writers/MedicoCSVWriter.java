@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.UUID;
 
 public class MedicoCSVWriter {
-     public static final String CSV_FILE_PATH = "medicos.csv";
+     public static final String MEDICOS_CSV_PATH = "medicos.csv";
 
     public static void writeMedicoToCSV(Medico medico) {
-        try (FileWriter csvWriter = new FileWriter(CSV_FILE_PATH, true)) {
-            File file = new File(CSV_FILE_PATH);
+        try (FileWriter csvWriter = new FileWriter(MEDICOS_CSV_PATH, true)) {
+            File file = new File(MEDICOS_CSV_PATH);
             if (file.length() == 0) {
                 csvWriter.append("ID;Nome;DataNascimento;CPF;Usuario;Senha;CreatedAt;UpdatedAt\n");
             }
@@ -31,9 +31,9 @@ public class MedicoCSVWriter {
 
     public static void deleteMedicoFromCSV(UUID medicoId) {
         try {
-            List<String> lines = Files.readAllLines(Paths.get(CSV_FILE_PATH));
+            List<String> lines = Files.readAllLines(Paths.get(MEDICOS_CSV_PATH));
 
-            try (PrintWriter writer = new PrintWriter(new FileWriter(CSV_FILE_PATH))) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(MEDICOS_CSV_PATH))) {
                 if (!lines.isEmpty()) {
                     writer.println(lines.get(0));
                 }
@@ -57,9 +57,9 @@ public class MedicoCSVWriter {
 
     public static void editMedicoInCSV(UUID medicoId, Medico novosDados) {
         try {
-            List<String> lines = Files.readAllLines(Paths.get(CSV_FILE_PATH));
+            List<String> lines = Files.readAllLines(Paths.get(MEDICOS_CSV_PATH));
 
-            try (PrintWriter writer = new PrintWriter(new FileWriter(CSV_FILE_PATH))) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(MEDICOS_CSV_PATH))) {
                 if (!lines.isEmpty()) {
                     writer.println(lines.get(0));
                 }

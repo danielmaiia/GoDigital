@@ -10,13 +10,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class ConsultaCSVWriter {
-    private static final String CSV_FILE_PATH = "consultas.csv";
+    public static final String CONSULTAS_CSV_PATH = "consultas.csv";
 
     public static void deleteConsultaFromCSV(int consultaId) {
         try {
-            List<String> lines = Files.readAllLines(Paths.get(CSV_FILE_PATH));
+            List<String> lines = Files.readAllLines(Paths.get(CONSULTAS_CSV_PATH));
 
-            try (PrintWriter writer = new PrintWriter(new FileWriter(CSV_FILE_PATH))) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(CONSULTAS_CSV_PATH))) {
                 if (!lines.isEmpty()) {
                     writer.println(lines.get(0));
                 }
@@ -39,8 +39,8 @@ public class ConsultaCSVWriter {
     }
 
         public static void writeConsultaToCSV (Consulta consulta){
-            try (FileWriter csvWriter = new FileWriter(CSV_FILE_PATH, true)) {
-                File file = new File(CSV_FILE_PATH);
+            try (FileWriter csvWriter = new FileWriter(CONSULTAS_CSV_PATH, true)) {
+                File file = new File(CONSULTAS_CSV_PATH);
                 if (file.length() == 0) {
                     csvWriter.append("ID;NomePaciente;MedicoId;CartaoSus;CPF;dataNascimento;Escolaridade;Telefone;Email;" +
                             "DataRequisicao;Especialidade;Senha;Gravidade;Idade;TempoEsperaSemanas;Score;CreatedAt;UpdatedAt\n");
@@ -73,9 +73,9 @@ public class ConsultaCSVWriter {
 
     public static void editConsultaInCSV(int consultaId, Consulta novosDados) {
         try {
-            List<String> lines = Files.readAllLines(Paths.get(CSV_FILE_PATH));
+            List<String> lines = Files.readAllLines(Paths.get(CONSULTAS_CSV_PATH));
 
-            try (PrintWriter writer = new PrintWriter(new FileWriter(CSV_FILE_PATH))) {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(CONSULTAS_CSV_PATH))) {
                 if (!lines.isEmpty()) {
                     writer.println(lines.get(0));
                 }

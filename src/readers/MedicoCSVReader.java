@@ -11,27 +11,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static writers.MedicoCSVWriter.MEDICOS_CSV_PATH;
+
 public class MedicoCSVReader {
-    private static final String CAMINHO_ARQUIVO_CSV = "medicos.csv";
+
 
     public static List<Medico> readMedicosFromCSV() {
         List<Medico> medicos = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(CAMINHO_ARQUIVO_CSV))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(MEDICOS_CSV_PATH))) {
             String linha;
 
             while ((linha = br.readLine()) != null) {
                 String[] partes = linha.split(";");
 
-                try {
-                    Medico medico = criarMedicoFromCSV(partes);
+                if (!partes[0].equals("ID")) {
 
-                    if (medico != null) {
-                        medicos.add(medico);
+                    try {
+                        Medico medico = criarMedicoFromCSV(partes);
+
+                        if (medico != null) {
+                            medicos.add(medico);
+                        }
+                    } catch (DateTimeParseException | IllegalArgumentException e) {
+                        System.err.println("Erro ao criar médico a partir da linha do CSV: " + linha);
+                        e.printStackTrace();
                     }
-                } catch (DateTimeParseException | IllegalArgumentException e) {
-                    System.err.println("Erro ao criar médico a partir da linha do CSV: " + linha);
-                    e.printStackTrace();
                 }
             }
         } catch (IOException e) {
@@ -49,10 +54,10 @@ public class MedicoCSVReader {
 
         UUID id = UUID.fromString(partes[0]);;
         String nome = partes[1];
-        String senha = partes[2];
+        String senha = partes[5];
         String crm = partes[3];
         String usuario = partes[4];
-        LocalDate dataNascimento = LocalDate.parse(partes[5]);
+        LocalDate dataNascimento = LocalDate.parse(partes[2]);
 
 
 

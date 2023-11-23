@@ -26,6 +26,18 @@ public class Coordenacao {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
+
+    public Coordenacao(UUID id, String nome, LocalDate dataNascimento, String cpf, String usuario, String senha) {
+        this.id = id;
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.cpf = cpf;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
     // Outros métodos da classe, se necessário
     public static void main(String[] args) {
         List<Coordenacao> coordenacoes = new ArrayList<>();

@@ -5,7 +5,7 @@ import entities.Medico;
 import java.util.List;
 import java.util.UUID;
 
-public class OrdenacaoMedico {
+public class BuscaBinariaMedico {
     public static Medico buscaBinariaMedico(List<Medico> medicos, UUID id) {
         int inicio = 0;
         int fim = medicos.size() - 1;
@@ -17,14 +17,16 @@ public class OrdenacaoMedico {
             int comparacao = id.compareTo(medicoMeio.getId());
 
             if (comparacao == 0) {
-                return medicoMeio; // Médico encontrado
+                return medicoMeio;
             } else if (comparacao < 0) {
-                fim = meio - 1; // Buscar na metade inferior
+                fim = meio - 1;
             } else {
-                inicio = meio + 1; // Buscar na metade superior
+                inicio = meio + 1;
             }
         }
 
-        return null; // Médico não encontrado
+        return null;
     }
+
+
 }
