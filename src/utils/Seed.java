@@ -18,17 +18,17 @@ public class Seed {
         for (int i = 0; i < 10000; i++) {
             Consulta consulta = new Consulta(
                     "Paciente" + i,
-                    UUID.randomUUID(), // Você pode substituir isso pelo ID real de um médico
+                    UUID.randomUUID(),
                     "CartaoSus" + i,
                     "CPFPaciente" + i,
-                    LocalDate.now().minusYears(i % 30), // Varia a data de nascimento
+                    LocalDate.now().minusYears(i % 30),
                     "Escolaridade" + i,
                     "Telefone" + i,
                     "Email" + i + "@example.com",
                     LocalDate.now().minusDays(i),
                     "Especialidade" + i,
                     "Senha" + i,
-                    ThreadLocalRandom.current().nextInt(1, 4), // Gravidade entre 1 e 3
+                    ThreadLocalRandom.current().nextInt(1, 4),
                     ThreadLocalRandom.current().nextInt(1, 100),
                     ThreadLocalRandom.current().nextInt(1, 10),
                     ThreadLocalRandom.current().nextInt(1, 100)
@@ -46,7 +46,7 @@ public class Seed {
 
             Coordenacao coordenacao = new Coordenacao(
                     "Nome" + i,
-                    LocalDate.now().minusYears(i % 30), // Varia a data de nascimento
+                    LocalDate.now().minusYears(i % 30),
                     "CPF" + i,
                     "Usuario" + i,
                     "Senha" + i
