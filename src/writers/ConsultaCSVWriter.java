@@ -1,4 +1,4 @@
-package utils;
+package writers;
 import entities.Consulta;
 import java.io.File;
 import java.io.FileWriter;
@@ -23,7 +23,7 @@ public class ConsultaCSVWriter {
 
                 for (int i = 1; i < lines.size(); i++) {
                     String line = lines.get(i);
-                    String[] columns = line.split(",");
+                    String[] columns = line.split(";");
                     int currentConsultaId = Integer.parseInt(columns[0]);
 
                     if (currentConsultaId != consultaId) {
@@ -42,27 +42,27 @@ public class ConsultaCSVWriter {
             try (FileWriter csvWriter = new FileWriter(CSV_FILE_PATH, true)) {
                 File file = new File(CSV_FILE_PATH);
                 if (file.length() == 0) {
-                    csvWriter.append("ID,NomePaciente,MedicoId,CartaoSus,CPF,dataNascimento,Escolaridade,Telefone,Email," +
-                            "DataRequisicao,Especialidade,Senha,Gravidade,Idade,TempoEsperaSemanas,Score,CreatedAt,UpdatedAt\n");
+                    csvWriter.append("ID;NomePaciente;MedicoId;CartaoSus;CPF;dataNascimento;Escolaridade;Telefone;Email;" +
+                            "DataRequisicao;Especialidade;Senha;Gravidade;Idade;TempoEsperaSemanas;Score;CreatedAt;UpdatedAt\n");
                 }
 
-                csvWriter.append(consulta.getId() + ",");
-                csvWriter.append(consulta.getNomePaciente() + ",");
-                csvWriter.append(consulta.getMedicoId() + ",");
-                csvWriter.append(consulta.getCartaoSus() + ",");
-                csvWriter.append(consulta.getCpfPaciente() + ",");
-                csvWriter.append(consulta.getDataNascimento() + ",");
-                csvWriter.append(consulta.getEscolaridade() + ",");
-                csvWriter.append(consulta.getTelefone() + ",");
-                csvWriter.append(consulta.getEmail() + ",");
-                csvWriter.append(consulta.getDataRequisicao() + ",");
-                csvWriter.append(consulta.getEspecialidade() + ",");
-                csvWriter.append(consulta.getSenha() + ",");
-                csvWriter.append(consulta.getGravidade() + ",");
-                csvWriter.append(consulta.getIdade() + ",");
-                csvWriter.append(consulta.getTempoEsperaSemanas() + ",");
-                csvWriter.append(consulta.getScore() + ",");
-                csvWriter.append(consulta.getCreatedAt() + ",");
+                csvWriter.append(consulta.getId() + ";");
+                csvWriter.append(consulta.getNomePaciente() + ";");
+                csvWriter.append(consulta.getMedicoId() + ";");
+                csvWriter.append(consulta.getCartaoSus() + ";");
+                csvWriter.append(consulta.getCpfPaciente() + ";");
+                csvWriter.append(consulta.getDataNascimento() + ";");
+                csvWriter.append(consulta.getEscolaridade() + ";");
+                csvWriter.append(consulta.getTelefone() + ";");
+                csvWriter.append(consulta.getEmail() + ";");
+                csvWriter.append(consulta.getDataRequisicao() + ";");
+                csvWriter.append(consulta.getEspecialidade() + ";");
+                csvWriter.append(consulta.getSenha() + ";");
+                csvWriter.append(consulta.getGravidade() + ";");
+                csvWriter.append(consulta.getIdade() + ";");
+                csvWriter.append(consulta.getTempoEsperaSemanas() + ";");
+                csvWriter.append(consulta.getScore() + ";");
+                csvWriter.append(consulta.getCreatedAt() + ";");
                 csvWriter.append(consulta.getUpdatedAt() + "\n");
 
             } catch (IOException e) {
@@ -82,7 +82,7 @@ public class ConsultaCSVWriter {
 
                 for (int i = 1; i < lines.size(); i++) {
                     String line = lines.get(i);
-                    String[] columns = line.split(",");
+                    String[] columns = line.split(";");
                     int currentConsultaId = Integer.parseInt(columns[0]);
 
                     if (currentConsultaId == consultaId) {
@@ -101,24 +101,24 @@ public class ConsultaCSVWriter {
     }
 
     private static String convertConsultaToCSVLine(Consulta consulta) {
-        return consulta.getId() + "," +
-                consulta.getNomePaciente() + "," +
-                consulta.getMedicoId() + "," +
-                consulta.getCartaoSus() + "," +
-                consulta.getCpfPaciente() + "," +
-                consulta.getDataNascimento() + "," +
-                consulta.getEscolaridade() + "," +
-                consulta.getTelefone() + "," +
-                consulta.getEmail() + "," +
-                consulta.getDataRequisicao() + "," +
-                consulta.getEspecialidade() + "," +
-                consulta.getSenha() + "," +
-                consulta.getGravidade() + "," +
-                consulta.getIdade() + "," +
-                consulta.getTempoEsperaSemanas() + "," +
-                consulta.getScore() + "," +
-                consulta.getCreatedAt() + "," +
-                LocalDateTime.now();
+        return consulta.getId() + ";" +
+                consulta.getNomePaciente() + ";" +
+                consulta.getMedicoId() + ";" +
+                consulta.getCartaoSus() + ";" +
+                consulta.getCpfPaciente() + ";" +
+                consulta.getDataNascimento() + ";" +
+                consulta.getEscolaridade() + ";" +
+                consulta.getTelefone() + ";" +
+                consulta.getEmail() + ";" +
+                consulta.getDataRequisicao() + ";" +
+                consulta.getEspecialidade() + ";" +
+                consulta.getSenha() + ";" +
+                consulta.getGravidade() + ";" +
+                consulta.getIdade() + ";" +
+                consulta.getTempoEsperaSemanas() + ";" +
+                consulta.getScore() + ";" +
+                consulta.getCreatedAt() + ";" +
+                LocalDateTime.now() + "\n";
     }
 
     }

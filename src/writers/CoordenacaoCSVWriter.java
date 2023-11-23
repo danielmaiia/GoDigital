@@ -1,6 +1,6 @@
-package utils;
+package writers;
 
-import entities.Medico;
+import entities.Coordenacao;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,24 +12,24 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-public class MedicoCSVWriter {
-    private static final String CSV_FILE_PATH = "medicos.csv";
+public class CoordenacaoCSVWriter {
+    private static final String CSV_FILE_PATH = "coordenacoes.csv";
 
-    public static void writeMedicoToCSV(Medico medico) {
+    public static void writeCoordenacaoToCSV(Coordenacao coordenacao) {
         try (FileWriter csvWriter = new FileWriter(CSV_FILE_PATH, true)) {
             File file = new File(CSV_FILE_PATH);
             if (file.length() == 0) {
-                csvWriter.append("ID,Nome,DataNascimento,CRM,Usuario,Senha,CreatedAt,UpdatedAt\n");
+                csvWriter.append("ID;Nome;DataNascimento;CPF;Usuario;Senha;CreatedAt;UpdatedAt\n");
             }
 
-            csvWriter.append(convertMedicoToCSVLine(medico));
+            csvWriter.append(convertCoordenacaoToCSVLine(coordenacao));
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void deleteMedicoFromCSV(UUID medicoId) {
+    public static void deleteCoordenacaoFromCSV(UUID coordenacaoId) {
         try {
             List<String> lines = Files.readAllLines(Paths.get(CSV_FILE_PATH));
 
@@ -40,22 +40,22 @@ public class MedicoCSVWriter {
 
                 for (int i = 1; i < lines.size(); i++) {
                     String line = lines.get(i);
-                    String[] columns = line.split(",");
-                    UUID currentMedicoId = UUID.fromString(columns[0]);
+                    String[] columns = line.split(";");
+                    UUID currentCoordenacaoId = UUID.fromString(columns[0]);
 
-                    if (!currentMedicoId.equals(medicoId)) {
+                    if (!currentCoordenacaoId.equals(coordenacaoId)) {
                         writer.println(line);
                     }
                 }
 
-                System.out.println("Médico excluído do arquivo CSV com sucesso!");
+                System.out.println("Coordenacao excluída do arquivo CSV com sucesso!");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void editMedicoInCSV(UUID medicoId, Medico novosDados) {
+    public static void editCoordenacaoInCSV(UUID coordenacaoId, Coordenacao novosDados) {
         try {
             List<String> lines = Files.readAllLines(Paths.get(CSV_FILE_PATH));
 
@@ -66,33 +66,33 @@ public class MedicoCSVWriter {
 
                 for (int i = 1; i < lines.size(); i++) {
                     String line = lines.get(i);
-                    String[] columns = line.split(",");
-                    UUID currentMedicoId = UUID.fromString(columns[0]);
+                    String[] columns = line.split(";");
+                    UUID currentCoordenacaoId = UUID.fromString(columns[0]);
 
-                    if (currentMedicoId.equals(medicoId)) {
-                        writer.println(convertMedicoToCSVLine(novosDados));
+                    if (currentCoordenacaoId.equals(coordenacaoId)) {
+                        writer.println(convertCoordenacaoToCSVLine(novosDados));
                     } else {
                         writer.println(line);
                     }
                 }
 
-                System.out.println("Médico editado no arquivo CSV com sucesso!");
+                System.out.println("Coordenacao editada no arquivo CSV com sucesso!");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static String convertMedicoToCSVLine(Medico medico) {
-        return medico.getId() + "," +
-                medico.getNome() + "," +
-                medico.getDataNascimento() + "," +
-                medico.getCrm() + "," +
-                medico.getUsuario() + "," +
-                medico.getSenha() + "," +
-                medico.getCreatedAt() + "," +
-                LocalDateTime.now();
+    private static String convertCoordenacaoToCSVLine(Coordenacao coordenacao) {
+        return coordenacao.getId() + ";" +
+                coordenacao.getNome() + ";" +
+                coordenacao.getDataNascimento() + ";" +
+                coordenacao.getCpf() + ";" +
+                coordenacao.getUsuario() + ";" +
+                coordenacao.getSenha() + ";" +
+                coordenacao.getCreatedAt() + ";" +
+                LocalDateTime.now() +"\n";
     }
 
-
 }
+

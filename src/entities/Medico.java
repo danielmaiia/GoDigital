@@ -1,6 +1,6 @@
 package entities;
 
-import utils.ConsultaCSVWriter;
+import writers.ConsultaCSVWriter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,6 +21,14 @@ public class Medico {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public Medico(UUID id, String nome, LocalDate dataNascimento, String crm, String usuario, String senha) {
+        this.id = id;
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.crm = crm;
+        this.usuario = usuario;
+        this.senha = senha;
+    }
 
     private UUID id;
     private String nome;

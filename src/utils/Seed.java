@@ -1,9 +1,11 @@
+package utils;
+
 import entities.Consulta;
 import entities.Coordenacao;
 import entities.Medico;
-import utils.ConsultaCSVWriter;
-import utils.CoordenacaoCSVWriter;
-import utils.MedicoCSVWriter;
+import writers.ConsultaCSVWriter;
+import writers.CoordenacaoCSVWriter;
+import writers.MedicoCSVWriter;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -12,14 +14,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Seed {
 
 
-    public static void main(String[] args) {
-        seedMedicos();
-        seedConsultas();
-        seedCoordenacao();
-    }
-
     public static void seedConsultas() {
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000; i++) {
             Consulta consulta = new Consulta(
                     "Paciente" + i,
                     UUID.randomUUID(), // Você pode substituir isso pelo ID real de um médico
@@ -42,7 +38,7 @@ public class Seed {
     }
 
     public static void seedMedicos() {
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000; i++) {
             Medico medico = new Medico(
                     "Nome" + i,
                     LocalDate.now().minusYears(i % 30),
@@ -55,7 +51,7 @@ public class Seed {
     }
 
     public static void seedCoordenacao() {
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000; i++) {
             Coordenacao coordenacao = new Coordenacao(
                     "Nome" + i,
                     LocalDate.now().minusYears(i % 30), // Varia a data de nascimento
