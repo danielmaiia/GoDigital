@@ -1,5 +1,8 @@
 package entities;
 
+import avl.ArvoreAVLConsulta;
+import avl.ArvoreAVLCoordenacao;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,7 +17,8 @@ public class Coordenacao {
     private String senha;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    // Construtores, getters e setters
+    private static final ArvoreAVLCoordenacao ARVORE_AVL_COORDENACAO = new ArvoreAVLCoordenacao();
+
     public Coordenacao(String nome, LocalDate dataNascimento, String cpf, String usuario,
                        String senha) {
         this.id = UUID.randomUUID();
@@ -38,27 +42,36 @@ public class Coordenacao {
         this.updatedAt = LocalDateTime.now();
     }
 
-    // Outros métodos da classe, se necessário
-    public static void main(String[] args) {
-        List<Coordenacao> coordenacoes = new ArrayList<>();
-// Mockar 10.000 objetos Coordenacao
+    public static void inserirNaArvore(Coordenacao coordenacao) {
+        ARVORE_AVL_COORDENACAO.inserir(coordenacao);
+    }
+
+    public static List<Coordenacao> getCoordenacoesFromArvore() {
+        return ARVORE_AVL_COORDENACAO.getTodasCoordenacoes();
+    }
+
+    public static Coordenacao buscarNaArvore(UUID id) {
+        return ARVORE_AVL_COORDENACAO.buscar(id);
+    }
+
+    private static Coordenacao mockCoordenacao(int i) {
+        return new Coordenacao(
+                "Nome" + i,
+                LocalDate.now().minusYears(i % 30),
+                "CPF" + i,
+                "Usuario" + i,
+                "Senha" + i
+        );
+    }
+
+    public static void mockCoordenacoes() {
         for (int i = 0; i < 10000; i++) {
-            Coordenacao coordenacao = new Coordenacao(
-                    "Nome" + i,
-                    LocalDate.now().minusYears(i % 30), // Varia a data de nascimento
-                    "CPF" + i,
-                    "Usuario" + i,
-                    "Senha" + i
-            );
-            coordenacoes.add(coordenacao);
-        }
-// Exemplo de uso: imprimir o nome e CPF dos 10 primeiros coordenadores
-        for (int i = 0; i < 10; i++) {
-            Coordenacao coordenacao = coordenacoes.get(i);
-            System.out.println("Nome: " + coordenacao.getNome() + ", CPF: " +
-                    coordenacao.getCpf());
+            Coordenacao coordenacao = mockCoordenacao(i);
+            inserirNaArvore(coordenacao);
         }
     }
+
+
 
     public UUID getId() {
         return id;

@@ -24,12 +24,12 @@ public class CoordenacaoCSVReader {
                 String[] partes = linha.split(";");
 
                 if (!partes[0].equals("ID")) {
-
                     try {
                         Coordenacao coordenacao = criarCoordenacaoFromCSV(partes);
 
                         if (coordenacao != null) {
                             coordenacoes.add(coordenacao);
+                            Coordenacao.inserirNaArvore(coordenacao);
                         }
                     } catch (DateTimeParseException | IllegalArgumentException e) {
                         System.err.println("Erro ao criar coordenacao a partir da linha do CSV: " + linha);

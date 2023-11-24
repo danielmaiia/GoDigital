@@ -32,6 +32,7 @@ public class MedicoCSVReader {
 
                         if (medico != null) {
                             medicos.add(medico);
+                            Medico.inserirNaArvore(medico);
                         }
                     } catch (DateTimeParseException | IllegalArgumentException e) {
                         System.err.println("Erro ao criar médico a partir da linha do CSV: " + linha);

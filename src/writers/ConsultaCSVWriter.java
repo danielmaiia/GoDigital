@@ -12,7 +12,7 @@ import java.util.List;
 public class ConsultaCSVWriter {
     public static final String CONSULTAS_CSV_PATH = "consultas.csv";
 
-    public static void deleteConsultaFromCSV(int consultaId) {
+    public static void deleteConsultaFromCSV(int consultaSus) {
         try {
             List<String> lines = Files.readAllLines(Paths.get(CONSULTAS_CSV_PATH));
 
@@ -24,16 +24,21 @@ public class ConsultaCSVWriter {
                 for (int i = 1; i < lines.size(); i++) {
                     String line = lines.get(i);
                     String[] columns = line.split(";");
-                    int currentConsultaId = Integer.parseInt(columns[0]);
+                    int currenteCartaoSus = Integer.parseInt(columns[3]);
 
-                    if (currentConsultaId != consultaId) {
+                    if (currenteCartaoSus == consultaSus) {
                         writer.println(line);
+                        System.out.println("Consulta excluida do arquivo CSV com sucesso!");
+                        break;
+                    }
+                    else if (i == lines.size() - 1){
+                        System.out.println("Consulta não encontrada no arquivo CSV, verifique se o cartao sus está correto.");
                     }
                 }
 
-                System.out.println("Consulta excluída do arquivo CSV com sucesso!");
             }
         } catch (IOException e) {
+            System.out.println("Erro ao excluir consulta do arquivo CSV. Verifique se existe algum registro com esse cartao sus está correto.");
             e.printStackTrace();
         }
     }
@@ -43,7 +48,7 @@ public class ConsultaCSVWriter {
                 File file = new File(CONSULTAS_CSV_PATH);
                 if (file.length() == 0) {
                     csvWriter.append("ID;NomePaciente;MedicoId;CartaoSus;CPF;dataNascimento;Escolaridade;Telefone;Email;" +
-                            "DataRequisicao;Especialidade;Senha;Gravidade;Idade;TempoEsperaSemanas;Score;CreatedAt;UpdatedAt\n");
+                            "DataRequisicao;Especialidade;Senha;Gravidade;Idade;TempoEsperaSemanas;Score;CreatedAt;UpdatedAt;Prioridade\n");
                 }
 
                 csvWriter.append(consulta.getId() + ";");
@@ -63,7 +68,8 @@ public class ConsultaCSVWriter {
                 csvWriter.append(consulta.getTempoEsperaSemanas() + ";");
                 csvWriter.append(consulta.getScore() + ";");
                 csvWriter.append(consulta.getCreatedAt() + ";");
-                csvWriter.append(consulta.getUpdatedAt() + "\n");
+                csvWriter.append(consulta.getUpdatedAt() + ";");
+                csvWriter.append(consulta.getPrioridade() + "\n");
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -71,7 +77,9 @@ public class ConsultaCSVWriter {
 
         }
 
-    public static void editConsultaInCSV(int consultaId, Consulta novosDados) {
+    public static void editConsultaInCSV(int consultaSus, Consulta novosDados) {
+        novosDados.setCartaoSus(consultaSus);
+
         try {
             List<String> lines = Files.readAllLines(Paths.get(CONSULTAS_CSV_PATH));
 
@@ -80,20 +88,25 @@ public class ConsultaCSVWriter {
                     writer.println(lines.get(0));
                 }
 
+                boolean consultaEncontrada = false;
+
                 for (int i = 1; i < lines.size(); i++) {
                     String line = lines.get(i);
                     String[] columns = line.split(";");
-                    int currentConsultaId = Integer.parseInt(columns[0]);
+                    int currentConsultaCartaoSus = Integer.parseInt(columns[3]);
 
-                    if (currentConsultaId == consultaId) {
+                    if (currentConsultaCartaoSus == consultaSus) {
                         writer.println(convertConsultaToCSVLine(novosDados));
+                        consultaEncontrada = true;
+                        System.out.println("Consulta editada no arquivo CSV com sucesso!");
                     } else {
-
                         writer.println(line);
                     }
                 }
 
-                System.out.println("Consulta editada no arquivo CSV com sucesso!");
+                if (!consultaEncontrada) {
+                    System.out.println("Consulta não encontrada no arquivo CSV, verifique se o cartão SUS está correto.");
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -118,7 +131,8 @@ public class ConsultaCSVWriter {
                 consulta.getTempoEsperaSemanas() + ";" +
                 consulta.getScore() + ";" +
                 consulta.getCreatedAt() + ";" +
-                LocalDateTime.now() + "\n";
+                LocalDateTime.now() + ";" +
+                consulta.getPrioridade() + "\n";
     }
 
     }

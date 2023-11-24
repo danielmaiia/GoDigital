@@ -1,14 +1,13 @@
 package entities;
 
+import avl.ArvoreAVLMedico;
 import writers.ConsultaCSVWriter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 public class Medico {
-    public Medico() {
-    }
-
     public Medico(String nome, LocalDate dataNascimento, String crm, String usuario, String
             senha) {
         this.id = UUID.randomUUID();
@@ -40,15 +39,30 @@ public class Medico {
     private LocalDateTime updatedAt;
 
 
-    public Consulta createConsulta(String nomePaciente, String cartaoSus, String cpfPaciente,
+    private static final ArvoreAVLMedico arvoreAVL = new ArvoreAVLMedico();
+
+
+    public static void inserirNaArvore(Medico medico) {
+        arvoreAVL.inserir(medico);
+    }
+
+    public static List<Medico> getMedicosFromArvore() {
+        return arvoreAVL.getTodosMedicos();
+    }
+
+    public static Medico buscarNaArvore(UUID id) {
+        return arvoreAVL.buscar(id);
+    }
+
+    public Consulta createConsulta(String nomePaciente, int cartaoSus, String cpfPaciente,
                                    LocalDate dataNascimento,
                                    String escolaridade, String telefone, String email,
                                    String especialidade, String senha, int gravidade, int idade, int
-                                           tempoEsperaSemanas, int score) {
+                                           tempoEsperaSemanas, int score,int prioridade) {
 
         Consulta consulta = new Consulta(nomePaciente, this.id, cartaoSus,
                 cpfPaciente, dataNascimento, escolaridade, telefone, email, LocalDate.now(),
-                especialidade, senha, gravidade, idade, tempoEsperaSemanas, score);
+                especialidade, senha, gravidade, idade, tempoEsperaSemanas, score, prioridade);
 
         ConsultaCSVWriter.writeConsultaToCSV(consulta);
 
@@ -59,6 +73,16 @@ public class Medico {
     public void deleteConsulta(int consultaId) {
         ConsultaCSVWriter.deleteConsultaFromCSV(consultaId);
         System.out.println("Excluido com sucesso");
+    }
+
+    private static Medico mockMedico(int i) {
+        return new Medico("Medico " + i, LocalDate.now(), "CRM " + i, "usuario " + i, "senha " + i);
+    }
+
+    public static void mockMedicos() {
+        for (int i = 0; i < 10000; i++) {
+            Medico.inserirNaArvore(mockMedico(i));
+        }
     }
 
     public UUID getId() {

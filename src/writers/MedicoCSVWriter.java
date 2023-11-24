@@ -15,14 +15,17 @@ import java.util.UUID;
 public class MedicoCSVWriter {
      public static final String MEDICOS_CSV_PATH = "medicos.csv";
 
-    public static void writeMedicoToCSV(Medico medico) {
+    public static void writeMedicoToCSV(List<Medico> medicos) {
         try (FileWriter csvWriter = new FileWriter(MEDICOS_CSV_PATH, true)) {
             File file = new File(MEDICOS_CSV_PATH);
             if (file.length() == 0) {
                 csvWriter.append("ID;Nome;DataNascimento;CPF;Usuario;Senha;CreatedAt;UpdatedAt\n");
             }
 
-            csvWriter.append(convertMedicoToCSVLine(medico));
+            for (Medico medico : medicos) {
+                csvWriter.append(convertMedicoToCSVLine(medico));
+                Medico.inserirNaArvore(medico);
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

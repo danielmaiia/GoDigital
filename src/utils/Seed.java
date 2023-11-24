@@ -16,33 +16,17 @@ public class Seed {
 
     public static void seeding() {
         for (int i = 0; i < 10000; i++) {
-            Consulta consulta = new Consulta(
-                    "Paciente" + i,
-                    UUID.randomUUID(),
-                    "CartaoSus" + i,
-                    "CPFPaciente" + i,
-                    LocalDate.now().minusYears(i % 30),
-                    "Escolaridade" + i,
-                    "Telefone" + i,
-                    "Email" + i + "@example.com",
-                    LocalDate.now().minusDays(i),
-                    "Especialidade" + i,
-                    "Senha" + i,
-                    ThreadLocalRandom.current().nextInt(1, 4),
-                    ThreadLocalRandom.current().nextInt(1, 100),
-                    ThreadLocalRandom.current().nextInt(1, 10),
-                    ThreadLocalRandom.current().nextInt(1, 100)
-            );
-            ConsultaCSVWriter.writeConsultaToCSV(consulta);
 
-            Medico medico = new Medico(
-                    "Nome" + i,
-                    LocalDate.now().minusYears(i % 30),
-                    "CRM" + i,
-                    "Usuario" + i,
-                    "Senha" + i
-            );
-            MedicoCSVWriter.writeMedicoToCSV(medico);
+//            ConsultaCSVWriter.writeConsultaToCSV(consulta);
+
+//            Medico medico = new Medico(
+//                    "Nome" + i,
+//                    LocalDate.now().minusYears(i % 30),
+//                    "CRM" + i,
+//                    "Usuario" + i,
+//                    "Senha" + i
+//            );
+//            MedicoCSVWriter.writeMedicoToCSV(medico);
 
             Coordenacao coordenacao = new Coordenacao(
                     "Nome" + i,
@@ -54,7 +38,9 @@ public class Seed {
             CoordenacaoCSVWriter.writeCoordenacaoToCSV(coordenacao);
         }
         }
+        public static void seedingMedico() {
 
+        }
     }
 
 
