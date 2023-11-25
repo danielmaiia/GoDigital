@@ -2,6 +2,7 @@ package entities;
 
 import avl.ArvoreAVLConsulta;
 import avl.ArvoreAVLMedico;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
+
 
 public class Consulta {
     private int id;
@@ -136,7 +138,7 @@ public class Consulta {
                 "Email" + i + "@example.com",
                 LocalDate.now().minusDays(i),
                 "Especialidade" + i,
-                "Senha" + i,
+                "$2a$1"+ i + "$beV"+ i + "g3" + i + "xTr5hcHE" + i + "AmydX.3mX" + i + "WmG4hb/GxTM8" + i + "/YktkxJZ.UwpaS"+ i,
                 ThreadLocalRandom.current().nextInt(1, 4),
                 ThreadLocalRandom.current().nextInt(2, 100),
                 ThreadLocalRandom.current().nextInt(2, 10),
@@ -161,12 +163,14 @@ public class Consulta {
         System.out.println("Digite o telefone do paciente: ");
         consulta.telefone = sc.nextLine()+ sc.next();;
         System.out.println("Digite o email do paciente: ");
-        consulta.email = sc.nextLine()+ sc.next();;
+        consulta.email = sc.nextLine()+ sc.next();
         consulta.dataRequisicao = LocalDate.now();
         System.out.println("Digite a especialidade");
         consulta.especialidade = sc.nextLine()+ sc.next();;
         System.out.println("Digite a senha");
-        consulta.senha = sc.nextLine()+ sc.next();;
+        consulta.senha = sc.nextLine()+ sc.next();
+        // Gerar um hash
+        consulta.senha = BCrypt.hashpw(consulta.senha, BCrypt.gensalt());
         consulta.gravidade = ThreadLocalRandom.current().nextInt(1, 4);
         consulta.idade = ThreadLocalRandom.current().nextInt(1, 100);
         consulta.tempoEsperaSemanas = ThreadLocalRandom.current().nextInt(1, 10);
@@ -174,7 +178,7 @@ public class Consulta {
         consulta.createdAt = LocalDateTime.now();
         consulta.updatedAt = LocalDateTime.now();
         System.out.println("Qual a prioridade do paciente?(numero inteiro de 1 a 100)");
-        sc.nextInt();
+        consulta.prioridade = sc.nextInt();
 
         System.out.println("Consulta cadastrada com sucesso!");
 

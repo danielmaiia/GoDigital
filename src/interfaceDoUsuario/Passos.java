@@ -8,10 +8,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Passos {
+    public static void start() {
+       Consulta.mockConsultas();
+       firstStep();
+    }
     public static void firstStep(){
         Scanner sc = new Scanner(System.in);
         ArvoreAVLConsulta arvoreAVLConsulta = new ArvoreAVLConsulta();
-        Consulta.mockConsultas();
+
         int options;
 
         System.out.println("Bem vindo ao sistema de consultas!");
@@ -20,7 +24,7 @@ public class Passos {
         System.out.println("2 - Editar a prioridade de um paciente");
         System.out.println("3 - Buscar uma consulta");
         System.out.println("4 - Listar as ultimas 10 consultas com maior prioridade?");
-        System.out.println("5 - Gerar planilha com todas as consultas  (após gerar a planilha a aplicacao sera encerrada)");
+        System.out.println("5 - Gerar planilha com todas as consultas ");
         options = sc.nextInt();
 
         if (options == 1) {
@@ -74,6 +78,7 @@ public class Passos {
             System.out.println();
             todasConsultas.forEach(ConsultaCSVWriter::writeConsultaToCSV);
             System.out.println("Exportadas pra planilha com sucesso!");
+            Passos.firstStep();
         }
 
 
